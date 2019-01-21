@@ -27,6 +27,17 @@ def getScriptText() {
     setupPipelineJob(gitAddress)
   }
 
+  createBuildMonitorView()  
+
+  def createBuildMonitorView(){
+    buildMonitorView('Overall View'){
+      jobs {
+        regex(".*(?<!Seed-Job)$")
+      }
+      recurse(true)
+    }
+  }
+
   def setupPipelineJob(String gitAddress) {
     def jobName = gitAddress.substring(gitAddress.lastIndexOf("/")+1,gitAddress.lastIndexOf("."))
     multibranchPipelineJob("$jobName"){

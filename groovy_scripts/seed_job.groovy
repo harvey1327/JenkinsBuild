@@ -13,7 +13,7 @@ builder.setIgnoreExisting(false)
 builder.setRemovedConfigFilesAction(javaposse.jobdsl.plugin.RemovedConfigFilesAction.DELETE)
 builder.setRemovedJobAction(javaposse.jobdsl.plugin.RemovedJobAction.DELETE)
 builder.setRemovedViewAction(javaposse.jobdsl.plugin.RemovedViewAction.DELETE)
-builder.setTargets('./multibranch_pipeline.groovy')
+builder.setScriptText('$JENKINS_HOME/init.groovy.d/multibranch_pipeline.groovy')
 job.buildersList.add(builder)
 
 job.save()

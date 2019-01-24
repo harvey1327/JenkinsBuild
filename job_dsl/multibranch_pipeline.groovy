@@ -1,26 +1,23 @@
 def gitArray = ['https://github.com/harvey1327/KotlinMicroService.git']
 def groupName = 'service'
 
-node {
+gitArray.each { gitAddress ->
+  setupPipelineJob(gitAddress)
+}
 
-  gitArray.each { gitAddress ->
-    def jobName = gitAddress.substring(gitAddress.lastIndexOf("/")+1,gitAddress.lastIndexOf("."))
-    stage("Set up Multibranch for $jobName"){
-      setupPipelineJob(gitAddress, jobName)
-    }
-  }
+createBuildMonitorView()
 
-  stage('Build Monitor View'){
-    buildMonitorView("$groupName View"){
-      jobs {
-        regex("$groupName-.*")
-      }
-      recurse(true)
+def createBuildMonitorView(){
+  buildMonitorView("$groupName View"){
+    jobs {
+      regex("$groupName-.*")
     }
+    recurse(true)
   }
 }
 
-def setupPipelineJob(String gitAddress, String jobName) {
+def setupPipelineJob(String gitAddress) {
+  def jobName = gitAddress.substring(gitAddress.lastIndexOf("/")+1,gitAddress.lastIndexOf("."))
   multibranchPipelineJob("$groupName-$jobName"){
     branchSources {
         git {

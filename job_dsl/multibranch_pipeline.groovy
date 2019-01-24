@@ -2,12 +2,12 @@ def gitArray = ['https://github.com/harvey1327/KotlinMicroService.git']
 def groupName = 'service'
 
 gitArray.each { gitAddress ->
-  setupPipelineJob(gitAddress)
+  setupPipelineJob(gitAddress, groupName)
 }
 
-createBuildMonitorView()
+createBuildMonitorView(groupName)
 
-def createBuildMonitorView(){
+def createBuildMonitorView(String groupName){
   buildMonitorView("$groupName View"){
     jobs {
       regex("$groupName-.*")
@@ -16,7 +16,7 @@ def createBuildMonitorView(){
   }
 }
 
-def setupPipelineJob(String gitAddress) {
+def setupPipelineJob(String gitAddress, String groupName) {
   def jobName = gitAddress.substring(gitAddress.lastIndexOf("/")+1,gitAddress.lastIndexOf("."))
   multibranchPipelineJob("$groupName-$jobName"){
     branchSources {

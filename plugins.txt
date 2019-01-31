@@ -1,6 +1,7 @@
 build-monitor-plugin:latest
 credentials-binding:latest
 cloudbees-folder:latest
+docker-plugin:latest
 git:latest
 github-branch-source:latest
 gradle:latest

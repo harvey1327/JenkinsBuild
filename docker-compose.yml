@@ -1,7 +1,8 @@
 version: '3.6'
 services:
-  jenkinsbuild:
+  jenkinsmaster:
     build: .
+    image: jenkinsmaster:latest
     ports:
       - "8080:8080"
       - "50000:50000"
